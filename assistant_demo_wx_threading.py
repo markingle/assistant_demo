@@ -1,3 +1,4 @@
+
 #Make sure these are install using pip
 from openai import OpenAI
 import time
@@ -10,16 +11,21 @@ client = OpenAI() # $.03 per call...I think
 #This class is using the functions from wxPython - a python GUI lib that works on Windows and Mac
 class MyFrame(wx.Frame):    
 	def __init__(self):
-		super().__init__(parent=None, title='OpenAI Assistant Creator', size = wx.Size(600, 375))
-		panel = wx.Panel(self)        
+		super().__init__(parent=None, title='OpenAI Assistant Creator', size = wx.Size(700, 600))
+		panel = wx.Panel(self)    
 		my_sizer = wx.BoxSizer(wx.VERTICAL)
+		#font = wx.Font(15, family = wx.FONTFAMILY_DEFAULT, style = 0, weight = 90, underline = False, facename = "", encoding = wx.FONTFAMILY_DEFAULT)
+		#self.SetFont(wx.Font(15, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
 
 		#input field
 		self.text_ctrl = wx.TextCtrl(panel)
+		self.text_ctrl.SetValue("Hello")
+		self.text_ctrl.SetFont(wx.Font(20, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
 		my_sizer.Add(self.text_ctrl, 0, wx.ALL | wx.EXPAND, 15)
 
 		#relpy field/textbox
-		self.text_reply = wx.TextCtrl(panel, id=-1, size=(50,75), style=wx.TE_READONLY | wx.TE_MULTILINE | wx.TE_RICH) 
+		self.text_reply = wx.TextCtrl(panel, id=-1, size=(100,150), style=wx.TE_READONLY | wx.TE_MULTILINE | wx.TE_RICH) 
+		self.text_reply.SetFont(wx.Font(25, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
 		my_sizer.Add(self.text_reply, 0, wx.ALL | wx.EXPAND, 30)
 
 		#Button to trigger event in UI
@@ -28,7 +34,8 @@ class MyFrame(wx.Frame):
 		my_sizer.Add(my_btn, 0, wx.ALL | wx.CENTER, 5) 
 
 		#status info field
-		self.text_status = wx.TextCtrl(panel, id=-1, size=(250,-1), style=wx.TE_READONLY) 
+		self.text_status = wx.TextCtrl(panel, id=-1, size=(250,-1), style=wx.TE_READONLY)
+		self.text_status.SetFont(wx.Font(20, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)) 
 		my_sizer.Add(self.text_status, 0, wx.ALL | wx.LEFT, 40)   
 		       
 		panel.SetSizer(my_sizer)  
@@ -53,6 +60,7 @@ class MyFrame(wx.Frame):
 
 	def send_question(self):
 		value = self.text_ctrl.GetValue()
+		#value = self.text1.GetValue()
 		if not value:
 			self.set_status_text("You didn't enter anything!  Ya big dummy!!!  :)")
 		else:
